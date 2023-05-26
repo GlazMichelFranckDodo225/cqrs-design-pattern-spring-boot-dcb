@@ -2,6 +2,7 @@ package com.dgmf.productservice.command.api.aggregate;
 
 import com.dgmf.productservice.command.api.commands.CreateProductCommand;
 import com.dgmf.productservice.command.api.events.ProductCreatedEvent;
+import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateLifecycle;
@@ -26,6 +27,7 @@ public class ProductAggregate {
     }
 
     // Handling of the command
+    @CommandHandler
     public ProductAggregate(CreateProductCommand createProductCommand) {
         // Performing all validations
         ProductCreatedEvent productCreatedEvent = new ProductCreatedEvent();
