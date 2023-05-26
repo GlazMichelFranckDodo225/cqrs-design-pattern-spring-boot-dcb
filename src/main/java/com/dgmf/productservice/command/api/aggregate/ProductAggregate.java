@@ -10,6 +10,10 @@ import org.springframework.beans.BeanUtils;
 
 import java.math.BigDecimal;
 
+/* Command API Flow ==> Step 3 :
+ProductAggregate ==> Command Handler
+Whatever the Command send to the CommandGateway, this command
+will be handled using the ProductAggregate. */
 @Aggregate
 public class ProductAggregate {
     @AggregateIdentifier
@@ -27,7 +31,12 @@ public class ProductAggregate {
         ProductCreatedEvent productCreatedEvent = new ProductCreatedEvent();
         // Copies des propriétés de la source vers la cible
         BeanUtils.copyProperties(createProductCommand, productCreatedEvent);
-        // Publishing the event
+
+        /* Command API Flow ==> Step 4 :
+        Event publishing (productCreatedEvent)
+        Whatever the operations or the business logic, an event is published.
+        That particular event, "productCreatedEvent", is being published
+        and stored in the Event Store */
         AggregateLifecycle.apply(productCreatedEvent);
     }
 

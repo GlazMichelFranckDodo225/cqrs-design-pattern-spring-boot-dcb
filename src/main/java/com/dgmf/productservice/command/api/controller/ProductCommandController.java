@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
+/* Command API Flow ==> Step 1 :
+Creating the Controller that handle the "/products" EndPoint
+for the Post Method */
 @RestController
 @RequestMapping("/products")
 public class ProductCommandController {
@@ -29,6 +32,10 @@ public class ProductCommandController {
                         .quantity(productRestModel.getQuantity())
                         .build();
 
+        /* Command API Flow ==> Step 2 :
+        From this particular Controller, sending the "createProductCommand"
+        to the CommandGateway.
+        This "createProductCommand" will be handled by the ProductAggregate*/
         String result = commandGateway.sendAndWait(createProductCommand);
 
         return result;
