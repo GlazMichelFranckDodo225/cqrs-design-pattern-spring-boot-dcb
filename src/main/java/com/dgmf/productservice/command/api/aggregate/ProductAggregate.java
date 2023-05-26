@@ -31,7 +31,7 @@ public class ProductAggregate {
         AggregateLifecycle.apply(productCreatedEvent);
     }
 
-    // Updating of all the fields
+    // Updating of all the fields (State of the command)
     @EventSourcingHandler
     public void on(ProductCreatedEvent productCreatedEvent) {
         this.productId = productCreatedEvent.getProductId();
@@ -39,7 +39,5 @@ public class ProductAggregate {
         this.price = productCreatedEvent.getPrice();
         this.quantity = productCreatedEvent.getQuantity();
     }
-
-
 
 }
