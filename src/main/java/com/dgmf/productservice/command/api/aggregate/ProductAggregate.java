@@ -2,6 +2,7 @@ package com.dgmf.productservice.command.api.aggregate;
 
 import com.dgmf.productservice.command.api.commands.CreateProductCommand;
 import com.dgmf.productservice.command.api.events.ProductCreatedEvent;
+import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
@@ -17,6 +18,10 @@ public class ProductAggregate {
     private BigDecimal price;
     private Integer quantity;
 
+    public ProductAggregate() {
+    }
+
+    // Handling of the command
     public ProductAggregate(CreateProductCommand createProductCommand) {
         // Performing all validations
         ProductCreatedEvent productCreatedEvent = new ProductCreatedEvent();
@@ -26,6 +31,15 @@ public class ProductAggregate {
         AggregateLifecycle.apply(productCreatedEvent);
     }
 
-    public ProductAggregate() {
+    // Updating of all the fields
+    @EventSourcingHandler
+    public void on(ProductCreatedEvent productCreatedEvent) {
+        this.productId = productCreatedEvent.getProductId();
+        this.name = productCreatedEvent.getName();
+        this.price = productCreatedEvent.getPrice();
+        this.quantity = productCreatedEvent.getQuantity();
     }
+
+
+
 }
