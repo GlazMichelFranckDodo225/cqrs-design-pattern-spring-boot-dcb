@@ -2,7 +2,9 @@ package com.dgmf.productservice.command.api.events;
 
 import com.dgmf.productservice.command.api.data.Product;
 import com.dgmf.productservice.command.api.repository.ProductRepository;
+import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
+import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +13,7 @@ This Event Handler listens the "productCreatedEvent".
 Whenever a "productCreatedEvent" occurs, ProductEventHandler uses
 the Repository to store the data in the Database. */
 @Component
+@ProcessingGroup("product")
 public class ProductEventHandler {
     private ProductRepository productRepository;
 
@@ -26,5 +29,10 @@ public class ProductEventHandler {
 
         // In the case where there is an exception after saving data
         throw new Exception("Exception Occured");
+    }
+
+    @ExceptionHandler
+    public void handle(Exception exception) throws Exception {
+        throw exception;
     }
 }
