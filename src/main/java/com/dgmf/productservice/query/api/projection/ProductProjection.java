@@ -26,7 +26,8 @@ public class ProductProjection {
         // Retrieving of all the Products
         List<Product> products = productRepository.findAll();
 
-        // Mapping "products" to "productRestModels"
+        // Mapping "products" to "productRestModels" (convert "products" to
+        // "productRestModels")
         List<ProductRestModel> productRestModels = products.stream()
                 .map(product -> ProductRestModel.builder()
                         .name(product.getName())

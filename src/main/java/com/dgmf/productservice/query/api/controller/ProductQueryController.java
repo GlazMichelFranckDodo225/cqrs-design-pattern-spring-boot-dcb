@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/* Query API Flow ==> Step 1 :
+Creating the "ProductQueryController" that will handle the "/products" Endpoint for
+the GET methods. */
 @RestController
 @RequestMapping("/products")
 public class ProductQueryController {
