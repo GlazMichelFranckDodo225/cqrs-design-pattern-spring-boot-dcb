@@ -28,7 +28,7 @@ public class ProductEventHandler {
         productRepository.save(product);
 
         // In the case where there is an exception after saving data
-        throw new Exception("Exception Occured");
+        // throw new Exception("Exception Occured");
     }
 
     @ExceptionHandler
